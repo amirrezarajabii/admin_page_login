@@ -1,30 +1,45 @@
-import React from "react";
-import { Button, Form, Input } from "antd";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Layout, Menu } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
-import Password from "antd/lib/input/Password";
+import "./LoginPage.css";
+import { login } from "../features/userSlice";
+
 const { Header, Content, Footer } = Layout;
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
-const users = {
-  userName = "amir",
-  Password = 1234
-}
-
 function LoginPage() {
+  // React States
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      login({
+        name: name,
+        email: email,
+        password: password,
+        loggedin: true,
+      })
+    );
+  };
+
+  // User Login info
+  const database = [
+    {
+      username: "admin",
+      password: "1234",
+    },
+  ];
+
   return (
     <div>
       <Layout className="layout" style={{ minHeight: "100vh" }}>
         <Header>
-          <div className="logo" />
-
           <Menu
             theme="dark"
             mode="horizontal"
@@ -43,58 +58,43 @@ function LoginPage() {
           }}
         >
           <div className="site-layout-content">
-            <Form
-              name="basic"
-              labelCol={{
-                span: 8,
-              }}
-              wrapperCol={{
-                span: 8,
-              }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-            >
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your username!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                label="Password"
+            <form onSubmit={(e) => submitHandler(e)}>
+              <label>Username:</label>
+              <br />
+              <input
+                required
+                type="name"
+                name="name"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <br />
+              <label>Email:</label>
+              <br />
+              <input
+                required
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <br />
+              <label>Password:</label>
+              <br />
+              <input
+                required
+                type="password"
                 name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 8,
-                }}
-              >
-                <Button type="primary" htmlType="submit">
-                  Login
-                </Button>
-              </Form.Item>
-            </Form>
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <br />
+              <br />
+              <button type="submit">Primary Button</button>
+            </form>
           </div>
         </Content>
         <Footer

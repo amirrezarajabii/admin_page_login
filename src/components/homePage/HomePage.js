@@ -1,16 +1,28 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./HomePage.css";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button } from "antd";
 import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { selectUser, logout } from "../features/userSlice";
 
 const { Header, Content, Sider, Footer } = Layout;
 
 function HomePage() {
+  const user = useSelector(selectUser);
+
+  const dispatch = useDispatch();
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+  };
+
   return (
     <div>
       <Layout style={{ minHeight: "100vh" }}>
@@ -52,8 +64,12 @@ function HomePage() {
               defaultSelectedKeys={["mail"]}
               style={{ justifyContent: "end" }}
             >
-              <Menu.Item key="mail" icon={<LogoutOutlined />}>
-                Logout
+              <Menu.Item key="mail">
+                <Button
+                  onClick={(e) => logoutHandler(e)}
+                  type="text"
+                  icon={<LogoutOutlined />}
+                ></Button>
               </Menu.Item>
             </Menu>
           </Header>
@@ -63,7 +79,8 @@ function HomePage() {
               className="site-layout-background"
               style={{ padding: 24, minHeight: 360 }}
             >
-              content
+              <h1>Welcome {user.name}</h1>
+              <br />
             </div>
           </Content>
           <Footer
