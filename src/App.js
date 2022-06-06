@@ -7,9 +7,7 @@ import { selectUser } from "./components/features/userSlice";
 
 function App() {
   const user = useSelector(selectUser);
-  return <div className="App">
-    {user ? <HomePage /> : <LoginPage />}
-    </div>;
+  return <div className="App">{user ? <HomePage /> : <LoginPage />}</div>;
 }
 
 export default App;

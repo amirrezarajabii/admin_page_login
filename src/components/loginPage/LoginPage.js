@@ -23,18 +23,9 @@ function LoginPage() {
         name: name,
         email: email,
         password: password,
-        loggedin: true,
       })
     );
   };
-
-  // User Login info
-  const database = [
-    {
-      username: "admin",
-      password: "1234",
-    },
-  ];
 
   return (
     <div>
@@ -74,7 +65,7 @@ function LoginPage() {
               <br />
               <input
                 required
-                type="email"
+                type="text"
                 name="email"
                 placeholder="Email"
                 value={email}
@@ -93,7 +84,7 @@ function LoginPage() {
               />
               <br />
               <br />
-              <button type="submit">Primary Button</button>
+              <button type="submit">Login</button>
             </form>
           </div>
         </Content>
