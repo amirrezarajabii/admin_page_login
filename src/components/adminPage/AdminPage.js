@@ -1,15 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import "./HomePage.css";
 import { Layout, Menu, Button } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import {
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { selectUser, logout } from "../features/userSlice";
+import { selectAdmin, logout } from "../features/userSlice";
 
 const { Header, Content, Sider, Footer } = Layout;
 
-function HomePage() {
-  const user = useSelector(selectUser);
+function AdminPage() {
+  const admin = useSelector(selectAdmin);
 
   const dispatch = useDispatch();
 
@@ -37,12 +41,15 @@ function HomePage() {
             mode="inline"
             defaultSelectedKeys={["4"]}
             items={[
-              {
-                key: "1",
-                icon: <UserOutlined />,
-                label: "nav 1",
-              },
-            ]}
+              UserOutlined,
+              VideoCameraOutlined,
+              UploadOutlined,
+              UserOutlined,
+            ].map((icon, index) => ({
+              key: String(index + 1),
+              icon: React.createElement(icon),
+              label: `nav ${index + 1}`,
+            }))}
           />
         </Sider>
         <Layout>
@@ -71,7 +78,7 @@ function HomePage() {
               className="site-layout-background"
               style={{ padding: 24, minHeight: 360 }}
             >
-              <h1>Welcome {user.name}</h1>
+              <h1>Welcome {admin.name}</h1>
               <br />
             </div>
           </Content>
@@ -88,4 +95,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default AdminPage;
