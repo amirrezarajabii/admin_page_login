@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
 import { useSelector } from "react-redux";
-import HomePage from "./components/homePage/HomePage";
 import LoginPage from "./components/loginPage/LoginPage";
-import AdminPage from "./components/adminPage/AdminPage";
 import { selectAdmin, selectUser } from "./components/features/userSlice";
+import TestPage from "./components/test";
 
 function App() {
   const admin = useSelector(selectAdmin);
@@ -12,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <HomePage /> : admin ? <AdminPage /> : <LoginPage />}
+      {user ? <TestPage /> : admin ? <TestPage /> : <LoginPage />}
     </div>
   );
 }
