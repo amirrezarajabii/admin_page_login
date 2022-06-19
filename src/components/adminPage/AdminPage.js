@@ -1,14 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Layout, Menu, Button } from "antd";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { selectAdmin, logout } from "../features/userSlice";
+import { selectAdmin, logout, DataBase } from "../features/userSlice";
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -39,16 +34,10 @@ function AdminPage() {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["4"]}
-            items={[
-              UserOutlined,
-              VideoCameraOutlined,
-              UploadOutlined,
-              UserOutlined,
-            ].map((icon, index) => ({
-              key: String(index + 1),
-              icon: React.createElement(icon),
-              label: `nav ${index + 1}`,
+            defaultSelectedKeys={["1"]}
+            items={DataBase.filter((item) => !item.admin).map((index) => ({
+              key: index.length,
+              label: index.name,
             }))}
           />
         </Sider>
